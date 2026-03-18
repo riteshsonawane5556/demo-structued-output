@@ -62,7 +62,7 @@ const scenarios = [
     title: "Scenario 1",
     subtitle: "Inconsistent Keys",
     description:
-      "Ask for JSON in plain text — often produces invalid or malformed JSON with no guarantee on structure.",
+      "Prompt asks for specific keys but the model may rename, reorder, or nest them unpredictably across runs.",
     badgeLabel: "Inconsistent",
     badgeClass: "bg-red-50 text-red-600 border border-red-200",
     icon: AlertTriangle,
@@ -77,7 +77,7 @@ const scenarios = [
     title: "Scenario 2",
     subtitle: "Faulty JSON",
     description:
-      "Prompt asks for specific keys but the model may rename, reorder, or nest them unpredictably across runs.",
+      "Ask for JSON in plain text — often produces invalid or malformed JSON with no guarantee on structure.",
     badgeLabel: "Unreliable",
     badgeClass: "bg-amber-50 text-amber-600 border border-amber-200",
     icon: Zap,
@@ -463,22 +463,21 @@ Input: ${userInput}`
                   id={`run-scenario-${index + 1}`}
                   onClick={() => runHandlers[index]()}
                   disabled={cards[index].status === "loading"}
-                  className={`w-full rounded-xl font-medium transition-all duration-200 border ${
+                  className={`w-full rounded-xl font-semibold transition-all duration-300 border h-11 ${
                     cards[index].status === "loading"
-                      ? "border-slate-200 bg-slate-100 text-slate-400 cursor-not-allowed"
-                      : `border-slate-200 bg-white text-slate-700 hover:bg-slate-50 hover:border-slate-300 hover:shadow-sm`
+                      ? "border-slate-100 bg-slate-50 text-slate-300 cursor-not-allowed"
+                      : "border-slate-200 bg-white text-slate-700 hover:border-slate-400 hover:bg-slate-50 hover:shadow-[0_2px_10px_-3px_rgba(0,0,0,0.07)] active:scale-[0.98]"
                   }`}
-                  variant="outline"
                 >
                   {cards[index].status === "loading" ? (
                     <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Running…
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin text-slate-400" />
+                      Running Model…
                     </>
                   ) : cards[index].status !== "idle" ? (
-                    "Run Again"
+                    "Re-run Analysis"
                   ) : (
-                    "Run"
+                    "Run Scenario"
                   )}
                 </Button>
 
